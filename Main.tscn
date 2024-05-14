@@ -1,0 +1,128 @@
+[gd_scene load_steps=9 format=3 uid="uid://cvx28i2auu0fv"]
+
+[ext_resource type="Script" path="res://components/ModCard.gd" id="1_7piry"]
+[ext_resource type="Script" path="res://Main.gd" id="1_7s4si"]
+[ext_resource type="Texture2D" uid="uid://t5hgollaa2hy" path="res://image/icon.svg" id="1_faay2"]
+[ext_resource type="Texture2D" uid="uid://vuay8grolp7v" path="res://image/checkbox.png" id="2_e6asq"]
+[ext_resource type="Script" path="res://components/Checkbox.gd" id="3_7srhr"]
+[ext_resource type="FontFile" uid="uid://mlwrsy1inpbn" path="res://font/funkin.ttf" id="4_ptclq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pq4gb"]
+font_size = 12
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3hot8"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7s4si")
+
+[node name="ModListArea" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ModList" type="VBoxContainer" parent="ModListArea"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+
+[node name="Template" type="Panel" parent="ModListArea/ModList"]
+visible = false
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+script = ExtResource("1_7piry")
+
+[node name="Icon" type="TextureRect" parent="ModListArea/ModList/Template"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -40.0
+offset_right = 50.0
+grow_vertical = 2
+texture = ExtResource("1_faay2")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="ModListArea/ModList/Template"]
+layout_mode = 1
+offset_left = 60.0
+offset_top = 12.0
+offset_right = 176.0
+offset_bottom = 35.0
+theme_override_fonts/font = ExtResource("4_ptclq")
+text = "Mod Template"
+
+[node name="Description" type="Label" parent="ModListArea/ModList/Template"]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 61.0
+offset_top = 34.0
+offset_right = -71.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_ptclq")
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sapien eget mi proin sed libero."
+label_settings = SubResource("LabelSettings_pq4gb")
+autowrap_mode = 3
+text_overrun_behavior = 3
+
+[node name="Checkbox" type="Sprite2D" parent="ModListArea/ModList/Template"]
+position = Vector2(440, 38)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_e6asq")
+hframes = 2
+script = ExtResource("3_7srhr")
+
+[node name="Button" type="Button" parent="ModListArea/ModList/Template/Checkbox"]
+offset_left = -58.0
+offset_top = -25.0
+offset_right = 55.0
+offset_bottom = 87.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3hot8")
+flat = true
+
+[node name="PlayGame" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -47.0
+offset_right = 51.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_ptclq")
+text = "Play Game"
+
+[node name="SelectGameFolder" type="FileDialog" parent="."]
+title = "Select the folder for Funkin'"
+initial_position = 2
+ok_button_text = "Select Current Folder"
+mode_overrides_title = false
+file_mode = 2
+access = 2
+use_native_dialog = true
+
+[connection signal="pressed" from="ModListArea/ModList/Template/Checkbox/Button" to="ModListArea/ModList/Template/Checkbox" method="_on_button_pressed"]
+[connection signal="pressed" from="PlayGame" to="." method="_on_play_game_pressed"]
+[connection signal="canceled" from="SelectGameFolder" to="." method="_on_select_game_folder_canceled"]
+[connection signal="dir_selected" from="SelectGameFolder" to="." method="_on_select_game_folder_dir_selected"]

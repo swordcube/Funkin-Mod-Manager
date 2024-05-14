@@ -1,0 +1,29 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Funkin' Mod Manager"
+run/main_scene="res://Main.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
+boot_splash/show_image=false
+config/icon="res://image/icon.svg"
+
+[display]
+
+window/size/viewport_width=500
+window/size/viewport_height=400
+window/size/resizable=false
+
+[rendering]
+
+gl_compatibility/force_angle_on_devices=[]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
